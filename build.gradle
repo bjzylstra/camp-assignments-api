@@ -1,0 +1,36 @@
+apply plugin: "java"
+apply plugin: "maven"
+
+group = "bertz"
+version = 1.0
+
+repositories {
+    mavenCentral()
+}
+
+sourceSets.all { set ->
+    def jarTask = task("${set.name}Jar", type: Jar) {
+        baseName = baseName + "-$set.name"
+        from set.output
+    }
+
+    artifacts {
+        archives jarTask
+    }
+}
+
+sourceSets {
+    api
+}
+
+dependencies {
+    apiCompile 'commons-codec:commons-codec:1.5'
+
+    testCompile 'junit:junit:4.9'
+    testCompile sourceSets.api.output
+    runtime configurations.apiRuntime
+}
+
+jar {
+    from sourceSets.api.output
+}
