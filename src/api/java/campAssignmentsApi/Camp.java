@@ -12,6 +12,12 @@ public class Camp {
     private String description;
     private Date startDate;
     private Date endDate;
+
+    /**
+     * Default constructor required for serialization.
+     */
+    public Camp() {
+    }
     
     public Camp(long id, String description, Date startDate, Date endDate) {
     	setId(id);
